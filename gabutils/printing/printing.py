@@ -120,6 +120,13 @@ class Printing(object):
         else:
             return ('[!] ' + text)
 
+    def inpt(self, text):
+        if self.color:
+            return (
+                Style.BRIGHT + Fore.MAGENTA + '[?] ' + Style.RESET_ALL + text)
+        else:
+            return ('[?] ' + text)
+
     # [#] [?] []
 
 
