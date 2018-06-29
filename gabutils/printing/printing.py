@@ -1,4 +1,3 @@
-
 import warnings
 
 # Try to import colorama
@@ -6,20 +5,24 @@ try:
     from colorama import Fore, Back, Style, init
     init(autoreset=True)
 except ImportError:
+
     class ColorFallback():
         __getattr__ = lambda self, name: ''
+
     Fore = Back = Style = ColorFallback()
     warnings.warn('Install colorama for colorsupport.')
+
 
 class Printing(object):
     """ Shortcuts to different printer functions
 
         Named Printing, but only returns formatted text
     """
+
     def __init__(self, newline=1, color=False):
         self.newline = newline
         if self.newline > 0:
-            self.n = newline*'\n'
+            self.n = newline * '\n'
         else:
             self.n = ''
         self.color = color
@@ -30,7 +33,7 @@ class Printing(object):
         if newline == 0:
             return ''
         if newline > 0:
-            n = newline*'\n'
+            n = newline * '\n'
             return n
         if newline < 0:
             warnings.warn("'newline' arg cannot be negative. Using 0.")
@@ -74,15 +77,16 @@ class Printing(object):
 
     def ok(self, text):
         if self.color:
-            return (Style.BRIGHT+Fore.GREEN+'[+] '+Style.RESET_ALL+text)
+            return (
+                Style.BRIGHT + Fore.GREEN + '[+] ' + Style.RESET_ALL + text)
         else:
-            return ('[+] '+text)
+            return ('[+] ' + text)
 
     def fail(self, text):
         if self.color:
-            return (Style.BRIGHT+Fore.RED+'[-] '+Style.RESET_ALL+text)
+            return (Style.BRIGHT + Fore.RED + '[-] ' + Style.RESET_ALL + text)
         else:
-            return ('[-] '+text)
+            return ('[-] ' + text)
 
     # true/false print
     def bool(self, text, bool):
@@ -94,26 +98,30 @@ class Printing(object):
     # Something is running
     def run(self, text):
         if self.color:
-            return (Style.BRIGHT+Fore.WHITE+'[~] '+Style.RESET_ALL+text)
+            return (
+                Style.BRIGHT + Fore.WHITE + '[~] ' + Style.RESET_ALL + text)
         else:
-            return ('[~] '+text)
-
+            return ('[~] ' + text)
 
     # Information
     def info(self, text):
         if self.color:
-            return (Style.BRIGHT+Fore.WHITE+'[*] '+Style.RESET_ALL+text)
+            return (
+                Style.BRIGHT + Fore.WHITE + '[*] ' + Style.RESET_ALL + text)
         else:
-            return (Style.BRIGHT+Fore.WHITE+'[*] '+Style.RESET_ALL+text)
+            return (
+                Style.BRIGHT + Fore.WHITE + '[*] ' + Style.RESET_ALL + text)
 
     # Warning
     def warn(self, text):
         if self.color:
-            return (Style.BRIGHT+Fore.YELLOW+'[!] '+Style.RESET_ALL+text)
+            return (
+                Style.BRIGHT + Fore.YELLOW + '[!] ' + Style.RESET_ALL + text)
         else:
-            return ('[!] '+text)
+            return ('[!] ' + text)
 
     # [#] [?] []
+
 
 if __name__ == '__main__':
     prt = Printing()
@@ -121,7 +129,6 @@ if __name__ == '__main__':
     print(prt.h1("Newline 0", newline=0))
     print(prt.h1("Newline 4", newline=4))
     print(prt.h1("Newline -4", newline=-4))
-
 
     pr = Printing(newline=2)
     print(pr.h1('Header 1'))
